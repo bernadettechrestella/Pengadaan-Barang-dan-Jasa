@@ -32,7 +32,7 @@ class Registrasi extends Controller
             "no_npwp" => $request->no_npwp,
             "password" => encrypt($request->password),
         ])) {
-            return redirect('/registrasi')->with('berhasil', 'Data berhasil disimpan');
+            return redirect('/loginSuplier')->with('berhasil', 'Data berhasil disimpan');
         } else {
             return redirect('/registrasi')->with('gagal', 'Data gagal disimpan');
         }

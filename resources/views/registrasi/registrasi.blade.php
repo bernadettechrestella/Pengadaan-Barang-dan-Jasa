@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-    <title>Pengadaan</title>
+    <title>Pengadaan | Registrasi Suplier</title>
     <meta content="" name="description">
     <meta content="" name="keywords">
 
@@ -38,13 +38,6 @@
 
 <body>
 
-    <!-- ======= Header ======= -->
-    <header id="header" class="fixed-top ">
-
-        @include('home.parsial.menu');
-
-    </header><!-- End Header -->
-
     <!-- ======= Cta Section ======= -->
     <section id="cta" class="cta">
 
@@ -57,12 +50,6 @@
                 <h2>Registrasi</h2>
                 <p>Silahkan Daftarkan Usaha Kamu Disini</p>
             </div>
-
-            @if(\Session::has('berhasil'))
-            <div class="alert alert-success" role="alert">
-                {{ Session::get('berhasil') }}
-            </div>
-            @endif
 
             @if(\Session::has('gagal'))
             <div class="alert alert-danger" role="alert">

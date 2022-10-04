@@ -6,9 +6,9 @@
             <li><a class="nav-link scrollto active" href="/">Home</a></li>
             @if($token == "kosong")
             <li><a class="nav-link scrollto" href="/loginSuplier">Masuk</a></li>
-            <li><a class="getstarted scrollto" href="/registrasi">Daftar</a></li>
+            <li><a class="nav-link scrollto" href="/registrasi">Daftar</a></li>
             @else
-            <li><a class="nav-link scrollto" href="/">Keluar</a></li>
+            <li><a class="nav-link scrollto" href="/logoutSuplier">Keluar</a></li>
             <li><a class="nav-link scrollto" href="#about">Pengajuan</a></li>
             @endif
         </ul>
