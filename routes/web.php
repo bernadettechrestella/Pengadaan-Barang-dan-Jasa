@@ -3,6 +3,7 @@
 use App\Http\Controllers\Home;
 use App\Http\Controllers\Admin;
 use App\Http\Controllers\Suplier;
+use App\Http\Controllers\Pengajuan;
 use App\Http\Controllers\Registrasi;
 use Illuminate\Support\Facades\Route;
 
@@ -23,3 +24,8 @@ Route::get('/logoutSuplier', [Suplier::class, 'keluarSuplier']);
 //login admin
 Route::get('/loginAdmin', [Admin::class, 'index']);
 Route::post('/masukAdmin', [Admin::class, 'masukAdmin']);
+//logout admin
+Route::get('/logoutAdmin', [Admin::class, 'keluarAdmin']);
+
+//list pengajuan
+Route::get('/pengajuan', [Pengajuan::class, 'index']);

@@ -45,13 +45,25 @@ class Admin extends Controller
                     Session::put('token', $jwt);
                     // return redirect('/');
 
-                    echo "berhasil login";
+                    return redirect('/pengajuan')->with('berhasil', "Selamat Datang");
                 } else {
                     return redirect('/loginAdmin')->with('gagal', 'Password Anda salah.');
                 }
             }
         } else {
             return redirect('/loginAdmin')->with('gagal', 'Data email tidak ditemukan');
+        }
+    }
+
+    public function keluarAdmin()
+    {
+        $token = Session::get('token');
+
+        if (M_Admin::where('token', $token)->update(['token' => 'keluar'])) {
+            Session::put('token', "");
+            return redirect('/loginAdmin');
+        } else {
+            return redirect('/loginAdmin')->with('gagal', 'Anda gagal logout');
         }
     }
 }
