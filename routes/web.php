@@ -26,6 +26,8 @@ Route::get('/loginAdmin', [Admin::class, 'index']);
 Route::post('/masukAdmin', [Admin::class, 'masukAdmin']);
 //logout admin
 Route::get('/logoutAdmin', [Admin::class, 'keluarAdmin']);
+//list Admin
+Route::get('/listAdmin', [Admin::class, 'listAdmin']);
 
 //list pengajuan
 Route::get('/pengajuan', [Pengajuan::class, 'index']);

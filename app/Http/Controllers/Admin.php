@@ -61,9 +61,22 @@ class Admin extends Controller
 
         if (M_Admin::where('token', $token)->update(['token' => 'keluar'])) {
             Session::put('token', "");
-            return redirect('/loginAdmin');
+            return redirect('/loginAdmin')->with('berhasil', 'Anda sudah logout');
         } else {
             return redirect('/loginAdmin')->with('gagal', 'Anda gagal logout');
+        }
+    }
+
+    public function listAdmin()
+    {
+        $token = Session::get('token');
+        $tokenDb = M_Admin::where('token', $token)->count();
+
+        if ($tokenDb > 0) {
+            $data['admin'] = M_Admin::where('status', '1')->paginate(15);
+            return view('admin.list', $data);
+        } else {
+            return redirect('/loginAdmin')->with('gagal', 'Anda sudah logout');
         }
     }
 }
