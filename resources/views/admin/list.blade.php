@@ -79,6 +79,9 @@
                     <!-- /.row -->
                     <div class="row">
                         <div class="col-12">
+                            <div class="text-right mb-2">
+                                <button type="button" class="btn btn-primary">Tambah Admin</button>
+                            </div>
                             <div class="card">
                                 <div class="card-header">
                                     <h3 class="card-title">Data Admin</h3>
