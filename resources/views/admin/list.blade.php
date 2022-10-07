@@ -80,7 +80,7 @@
                     <div class="row">
                         <div class="col-12">
                             <div class="text-right mb-2">
-                                <button type="button" class="btn btn-primary">Tambah Admin</button>
+                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Tambah Data</button>
                             </div>
                             <div class="card">
                                 <div class="card-header">
@@ -130,6 +130,7 @@
         </div>
         <!-- /.content-wrapper -->
         @include('parsial.footer')
+        @include('admin.tambah')
 
         <!-- Control Sidebar -->
         <aside class="control-sidebar control-sidebar-dark">
