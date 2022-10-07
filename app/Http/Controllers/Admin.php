@@ -45,7 +45,7 @@ class Admin extends Controller
                     Session::put('token', $jwt);
                     // return redirect('/');
 
-                    return redirect('/pengajuan')->with('berhasil', "Selamat Datang");
+                    return redirect('/listAdmin')->with('berhasil', "Selamat Datang");
                 } else {
                     return redirect('/loginAdmin')->with('gagal', 'Password Anda salah.');
                 }
