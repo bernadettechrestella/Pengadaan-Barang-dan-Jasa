@@ -45,7 +45,7 @@ class Admin extends Controller
                     Session::put('token', $jwt);
                     // return redirect('/');
 
-                    return redirect('/listAdmin')->with('berhasil', "Selamat Datang");
+                    return redirect('/pengajuan')->with('berhasil', "Selamat Datang");
                 } else {
                     return redirect('/loginAdmin')->with('gagal', 'Password Anda salah.');
                 }
@@ -77,6 +77,41 @@ class Admin extends Controller
             return view('admin.list', $data);
         } else {
             return redirect('/loginAdmin')->with('gagal', 'Anda sudah logout');
+        }
+    }
+
+    public function tambahAdmin(Request $request)
+    {
+        $this->validate(
+            $request,
+            [
+                'nama' => 'required',
+                'email' => 'required',
+                'alamat' => 'required',
+                'password' => 'required'
+            ]
+        );
+
+        $token = Session::get('token');
+        $tokenDb = M_Admin::where('token', $token)->count();
+
+        // return response([$token, $tokenDb]);
+
+        if ($tokenDb > 0) {
+            if (M_Admin::create(
+                [
+                    "nama" => $request->nama,
+                    "email" => $request->email,
+                    "alamat" => $request->alamat,
+                    "password" => encrypt($request->password),
+                ]
+            )) {
+                return redirect('/listAdmin')->with('berhasil', 'Data Berhasil Disimpan');
+            } else {
+                return redirect('/listAdmin')->with('gagal', 'Data Gagal Disimpan');
+            }
+        } else {
+            return redirect('/loginAdmin')->with('gagal', 'Anda sudah keluar, Silahkan masuk kembali');
         }
     }
 }

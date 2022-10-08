@@ -28,6 +28,7 @@ Route::post('/masukAdmin', [Admin::class, 'masukAdmin']);
 Route::get('/logoutAdmin', [Admin::class, 'keluarAdmin']);
 //list Admin
 Route::get('/listAdmin', [Admin::class, 'listAdmin']);
+Route::post('/tambahAdmin', [Admin::class, 'tambahAdmin']);
 
 //list pengajuan
 Route::get('/pengajuan', [Pengajuan::class, 'index']);

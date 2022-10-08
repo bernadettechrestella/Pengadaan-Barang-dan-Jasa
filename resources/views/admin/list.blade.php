@@ -12,6 +12,10 @@
     <link rel="stylesheet" href="{{asset('adminlte/AdminLTE-master/plugins/fontawesome-free/css/all.min.css')}}">
     <!-- Theme style -->
     <link rel="stylesheet" href="{{asset('adminlte/AdminLTE-master/dist/css/adminlte.min.css')}}">
+    <!-- SweetAlert2 -->
+    <link rel="stylesheet" href="{{asset('adminlte/AdminLTE-master/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css')}}">
+    <!-- Toastr -->
+    <link rel="stylesheet" href="{{asset('adminlte/AdminLTE-master/plugins/toastr/toastr.min.css')}}">
 </head>
 
 <body class="hold-transition sidebar-mini">
@@ -79,9 +83,13 @@
                     <!-- /.row -->
                     <div class="row">
                         <div class="col-12">
+
                             <div class="text-right mb-2">
-                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Tambah Data</button>
+                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                                    Tambah Data
+                                </button>
                             </div>
+
                             <div class="card">
                                 <div class="card-header">
                                     <h3 class="card-title">Data Admin</h3>
@@ -146,6 +154,44 @@
     <script src="{{asset('adminlte/AdminLTE-master/plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
     <!-- AdminLTE App -->
     <script src="{{asset('adminlte/AdminLTE-master/dist/js/adminlte.min.js')}}"></script>
+    <!-- SweetAlert2 -->
+    <script src="{{asset('adminlte/AdminLTE-master/plugins/sweetalert2/sweetalert2.min.js')}}"></script>
+
+    <script>
+        $(function() {
+            var Toast = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 3000
+            });
+
+            @if(\Session::has('berhasil'))
+            Toast.fire({
+                icon: 'success',
+                title: '{{Session::get('
+                berhasil ')}}'
+            })
+            @endif
+
+            @if(\Session::has('gagal'))
+            Toast.fire({
+                icon: 'error',
+                title: '{{Session::get('
+                gagal ')}}'
+            })
+            @endif
+
+            @if(count($errors) > 0)
+            Toast.fire({
+                icon: 'error',
+                title: '<ul>@foreach($errors->all() as $error)<li>{{$error}}</li>@endforeach</ul>'
+            })
+
+            @endif
+        });
+    </script>
+
 </body>
 
 </html>
