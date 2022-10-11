@@ -4,6 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Pengadaan | Admin</title>
 
     <!-- Google Font: Source Sans Pro -->
@@ -86,7 +87,7 @@
 
                             <div class="text-right mb-2">
                                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-                                    Tambah Data
+                                    <i class="fas fa-plus mr-2"></i>Tambah
                                 </button>
                             </div>
 
@@ -122,6 +123,14 @@
                                                 <td>{{$adm->nama}}</td>
                                                 <td>{{$adm->email}}</td>
                                                 <td>{{$adm->alamat}}</td>
+                                                <td>
+                                                    <button type="button" class="btn btn-secondary mr-2 ubah" data-toggle="modal" data-target="#ubahModal" data-id_admin="{{$adm->id_admin}}" data-nama="{{$adm->nama}}" data-email="{{$adm->email}}" data-alamat="{{$adm->alamat}}">
+                                                        <i class="fas fa-edit"></i>
+                                                    </button>
+                                                    <button type="button" class="btn btn-danger">
+                                                        <i class="fas fa-trash"></i>
+                                                    </button>
+                                                </td>
                                             </tr>
                                             @endforeach
                                         </tbody>
@@ -139,6 +148,7 @@
         <!-- /.content-wrapper -->
         @include('parsial.footer')
         @include('admin.tambah')
+        @include('admin.ubah')
 
         <!-- Control Sidebar -->
         <aside class="control-sidebar control-sidebar-dark">
@@ -159,36 +169,86 @@
 
     <script>
         $(function() {
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            $('#savedataadmin').click(function(e) {
+                var route = "{{ route('tambahAdmin') }}";
+
+                var namaVal = $('#nama').val();
+                var emailVal = $('#email').val();
+                var alamatVal = $('#alamat').val();
+                var passwordVal = $('#password').val();
+
+                $.ajax({
+                    type: 'POST',
+                    url: route,
+                    data: {
+                        nama: namaVal,
+                        email: emailVal,
+                        alamat: alamatVal,
+                        password: passwordVal
+                    },
+                    success: function(data) {
+                        $('#exampleModal').modal('hide');
+                        Toast.fire({
+                            icon: 'success',
+                            title: data.message
+                        })
+                        setTimeout(function() {
+                            location.reload(true);
+                        }, 3000);
+
+                    }
+                });
+            });
+
+            //ini alert
             var Toast = Swal.mixin({
                 toast: true,
                 position: 'top-end',
                 showConfirmButton: false,
-                timer: 3000
+                timer: 1500
             });
 
-            @if(\Session::has('berhasil'))
-            Toast.fire({
-                icon: 'success',
-                title: '{{Session::get('
-                berhasil ')}}'
-            })
-            @endif
+            // @if(\Session::has('berhasil'))
+            // Toast.fire({
+            //     icon: 'success',
+            //     title: '{{Session::get('
+            //     berhasil ')}}'
+            // })
+            // @endif
 
-            @if(\Session::has('gagal'))
-            Toast.fire({
-                icon: 'error',
-                title: '{{Session::get('
-                gagal ')}}'
-            })
-            @endif
+            // @if(\Session::has('gagal'))
+            // Toast.fire({
+            //     icon: 'error',
+            //     title: '{{Session::get('
+            //     gagal ')}}'
+            // })
+            // @endif
 
-            @if(count($errors) > 0)
-            Toast.fire({
-                icon: 'error',
-                title: '<ul>@foreach($errors->all() as $error)<li>{{$error}}</li>@endforeach</ul>'
-            })
+            // @if(count($errors) > 0)
+            // Toast.fire({
+            //     icon: 'error',
+            //     title: '<ul>@foreach($errors->all() as $error)<li>{{$error}}</li>@endforeach</ul>'
+            // })
+            // @endif
+            //ini end alert
 
-            @endif
+            $(document).on("click", ".ubah", function() {
+                var id_admin = $(this).data('id_admin');
+                var nama = $(this).data('nama');
+                var email = $(this).data('email');
+                var alamat = $(this).data('alamat');
+
+                $(".id_admin").val(id_admin);
+                $(".nama").val(nama);
+                $(".email").val(email);
+                $(".alamat").val(alamat);
+            });
         });
     </script>
 
