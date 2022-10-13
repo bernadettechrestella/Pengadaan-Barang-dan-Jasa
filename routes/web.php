@@ -4,6 +4,7 @@ use App\Http\Controllers\Home;
 use App\Http\Controllers\Admin;
 use App\Http\Controllers\Suplier;
 use App\Http\Controllers\Pengajuan;
+use App\Http\Controllers\Pengadaan;
 use App\Http\Controllers\Registrasi;
 use Illuminate\Support\Facades\Route;
 
@@ -31,6 +32,10 @@ Route::get('/listAdmin', [Admin::class, 'listAdmin']);
 Route::post('/tambahAdmin', [Admin::class, 'tambahAdmin'])->name('tambahAdmin');
 Route::post('/ubahAdmin', [Admin::class, 'ubahAdmin'])->name('ubahAdmin');
 Route::get('/hapusAdmin/{id}', [Admin::class, 'hapusAdmin']);
+
+//pengadaan
+Route::get('/listPengadaan', [Pengadaan::class, 'index']);
+Route::post('/tambahPengadaan', [Pengadaan::class, 'tambahPengadaan']);
 
 //list pengajuan
 Route::get('/pengajuan', [Pengajuan::class, 'index']);
