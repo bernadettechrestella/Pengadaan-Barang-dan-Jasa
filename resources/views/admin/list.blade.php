@@ -124,12 +124,14 @@
                                                 <td>{{$adm->email}}</td>
                                                 <td>{{$adm->alamat}}</td>
                                                 <td>
-                                                    <button type="button" class="btn btn-secondary mr-2 ubah" data-toggle="modal" data-target="#ubahModal" data-id_admin="{{$adm->id_admin}}" data-nama="{{$adm->nama}}" data-email="{{$adm->email}}" data-alamat="{{$adm->alamat}}">
+                                                    <button type="button" class="btn btn-secondary ubah" data-toggle="modal" data-target="#ubahModal" data-id_admin="{{$adm->id_admin}}" data-nama="{{$adm->nama}}" data-email="{{$adm->email}}" data-alamat="{{$adm->alamat}}">
                                                         <i class="fas fa-edit"></i>
                                                     </button>
-                                                    <button type="button" class="btn btn-danger">
-                                                        <i class="fas fa-trash"></i>
-                                                    </button>
+                                                    <a class="konfirmasi" href="/hapusAdmin/{{$adm->id_admin}}">
+                                                        <button type="button" class="btn btn-danger">
+                                                            <i class="fas fa-trash"></i>
+                                                        </button>
+                                                    </a>
                                                 </td>
                                             </tr>
                                             @endforeach
@@ -206,6 +208,37 @@
                 });
             });
 
+            $('#updateDataAdmin').click(function(e) {
+                var route = "{{ route('ubahAdmin') }}";
+
+                // var id_adminVal = $('#id_admin').val();
+                var namaVal = $('#u_nama').val();
+                var emailVal = $('#u_email').val();
+                var alamatVal = $('#u_alamat').val();
+
+                $.ajax({
+                    type: 'POST',
+                    url: route,
+                    data: {
+                        // id_admin: id_adminVal,
+                        nama: namaVal,
+                        email: emailVal,
+                        alamat: alamatVal,
+                    },
+                    success: function(data) {
+                        $('#exampleModal').modal('hide');
+                        Toast.fire({
+                            icon: 'success',
+                            title: data.message
+                        })
+                        setTimeout(function() {
+                            location.reload(true);
+                        }, 3000);
+
+                    }
+                });
+            });
+
             //ini alert
             var Toast = Swal.mixin({
                 toast: true,
@@ -248,6 +281,19 @@
                 $(".nama").val(nama);
                 $(".email").val(email);
                 $(".alamat").val(alamat);
+            });
+
+            $(document).on("click", ".konfirmasi", function(event) {
+                event.preventDefault();
+                const url = $(this).attr('href');
+
+                var answer = window.confirm("Yakin ingin menghapus data?");
+
+                if (answer) {
+                    window.location.href = url;
+                } else {
+
+                }
             });
         });
     </script>
