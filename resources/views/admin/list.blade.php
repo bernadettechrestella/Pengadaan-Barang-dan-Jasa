@@ -115,6 +115,7 @@
                                                 <th>Nama</th>
                                                 <th>Email</th>
                                                 <th>Alamat</th>
+                                                <th></th>
                                             </tr>
                                         </thead>
                                         <tbody>
